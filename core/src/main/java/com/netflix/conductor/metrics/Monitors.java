@@ -25,7 +25,6 @@ import com.netflix.spectator.api.Registry;
 import com.netflix.spectator.api.Spectator;
 import com.netflix.spectator.api.Timer;
 import com.netflix.spectator.api.histogram.PercentileTimer;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -219,6 +218,11 @@ public class Monitors {
 
     public static void recordWorkflowTermination(String workflowType, WorkflowStatus status, String ownerApp) {
         counter(classQualifier, "workflow_failure", "workflowName", workflowType, "status", status.name(), "ownerApp",
+            "" + ownerApp);
+    }
+
+    public static void recordWorkflowStartSuccess(String workflowType, String version, String ownerApp) {
+        counter(classQualifier, "workflow_start_success", "workflowName", workflowType, "version", version, "ownerApp",
             "" + ownerApp);
     }
 

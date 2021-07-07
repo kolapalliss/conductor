@@ -1346,6 +1346,7 @@
                 "com.netflix.eureka:eureka-client",
                 "io.swagger.core.v3:swagger-core",
                 "net.thisptr:jackson-jq",
+                "org.springframework.boot:spring-boot-actuator-autoconfigure",
                 "org.springframework.boot:spring-boot-starter-json"
             ]
         },
@@ -1380,6 +1381,7 @@
             "transitive": [
                 "com.netflix.conductor:conductor-client",
                 "io.swagger.core.v3:swagger-core",
+                "org.springframework.boot:spring-boot-actuator-autoconfigure",
                 "org.springframework.boot:spring-boot-starter-json"
             ]
         },
@@ -1714,10 +1716,16 @@
             ]
         },
         "com.netflix.conductor:conductor-mysql-persistence": {
-            "project": true
+            "project": true,
+            "transitive": [
+                "com.netflix.conductor:conductor-server"
+            ]
         },
         "com.netflix.conductor:conductor-postgres-persistence": {
-            "project": true
+            "project": true,
+            "transitive": [
+                "com.netflix.conductor:conductor-server"
+            ]
         },
         "com.netflix.conductor:conductor-redis-persistence": {
             "project": true,
@@ -1847,7 +1855,8 @@
         "com.netflix.spectator:spectator-reg-micrometer": {
             "locked": "0.122.0",
             "transitive": [
-                "com.netflix.conductor:conductor-contribs"
+                "com.netflix.conductor:conductor-contribs",
+                "com.netflix.conductor:conductor-server"
             ]
         },
         "com.rabbitmq:amqp-client": {
@@ -1928,8 +1937,7 @@
         "com.zaxxer:HikariCP": {
             "locked": "3.4.5",
             "transitive": [
-                "com.netflix.conductor:conductor-mysql-persistence",
-                "com.netflix.conductor:conductor-postgres-persistence"
+                "org.springframework.boot:spring-boot-starter-jdbc"
             ]
         },
         "commons-cli:commons-cli": {
@@ -2059,6 +2067,7 @@
         "io.micrometer:micrometer-core": {
             "locked": "1.5.1",
             "transitive": [
+                "com.netflix.spectator:spectator-reg-micrometer",
                 "io.micrometer:micrometer-registry-prometheus"
             ]
         },
@@ -3285,7 +3294,8 @@
         "org.springdoc:springdoc-openapi-ui": {
             "locked": "1.4.8",
             "transitive": [
-                "com.netflix.conductor:conductor-rest"
+                "com.netflix.conductor:conductor-rest",
+                "com.netflix.conductor:conductor-server"
             ]
         },
         "org.springdoc:springdoc-openapi-webmvc-core": {
@@ -3297,16 +3307,31 @@
         "org.springframework.boot:spring-boot": {
             "locked": "2.3.1.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-actuator",
+                "org.springframework.boot:spring-boot-actuator-autoconfigure",
                 "org.springframework.boot:spring-boot-autoconfigure",
                 "org.springframework.boot:spring-boot-starter",
                 "org.springframework.boot:spring-boot-test",
                 "org.springframework.boot:spring-boot-test-autoconfigure"
             ]
         },
+        "org.springframework.boot:spring-boot-actuator": {
+            "locked": "2.3.1.RELEASE",
+            "transitive": [
+                "org.springframework.boot:spring-boot-actuator-autoconfigure"
+            ]
+        },
+        "org.springframework.boot:spring-boot-actuator-autoconfigure": {
+            "locked": "2.3.1.RELEASE",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-actuator"
+            ]
+        },
         "org.springframework.boot:spring-boot-autoconfigure": {
             "locked": "2.3.1.RELEASE",
             "transitive": [
                 "org.springdoc:springdoc-openapi-common",
+                "org.springframework.boot:spring-boot-actuator-autoconfigure",
                 "org.springframework.boot:spring-boot-starter",
                 "org.springframework.boot:spring-boot-test-autoconfigure"
             ]
@@ -3315,8 +3340,12 @@
             "locked": "2.3.1.RELEASE",
             "transitive": [
                 "org.springframework.boot:spring-boot",
+                "org.springframework.boot:spring-boot-actuator",
+                "org.springframework.boot:spring-boot-actuator-autoconfigure",
                 "org.springframework.boot:spring-boot-autoconfigure",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-jdbc",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-log4j2",
                 "org.springframework.boot:spring-boot-starter-logging",
@@ -3332,10 +3361,25 @@
             "locked": "2.3.1.RELEASE",
             "transitive": [
                 "com.netflix.conductor:conductor-server",
+                "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-jdbc",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-test",
                 "org.springframework.boot:spring-boot-starter-validation",
                 "org.springframework.boot:spring-boot-starter-web"
+            ]
+        },
+        "org.springframework.boot:spring-boot-starter-actuator": {
+            "locked": "2.3.1.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-server"
+            ]
+        },
+        "org.springframework.boot:spring-boot-starter-jdbc": {
+            "locked": "2.3.1.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-mysql-persistence",
+                "com.netflix.conductor:conductor-postgres-persistence"
             ]
         },
         "org.springframework.boot:spring-boot-starter-json": {
@@ -3403,6 +3447,8 @@
             "transitive": [
                 "org.springframework:spring-aop",
                 "org.springframework:spring-context",
+                "org.springframework:spring-jdbc",
+                "org.springframework:spring-tx",
                 "org.springframework:spring-web",
                 "org.springframework:spring-webmvc"
             ]
@@ -3424,7 +3470,9 @@
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
                 "org.springframework:spring-expression",
+                "org.springframework:spring-jdbc",
                 "org.springframework:spring-test",
+                "org.springframework:spring-tx",
                 "org.springframework:spring-web",
                 "org.springframework:spring-webmvc"
             ]
@@ -3442,10 +3490,22 @@
                 "org.springframework:spring-core"
             ]
         },
+        "org.springframework:spring-jdbc": {
+            "locked": "5.2.7.RELEASE",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-jdbc"
+            ]
+        },
         "org.springframework:spring-test": {
             "locked": "5.2.7.RELEASE",
             "transitive": [
                 "org.springframework.boot:spring-boot-starter-test"
+            ]
+        },
+        "org.springframework:spring-tx": {
+            "locked": "5.2.7.RELEASE",
+            "transitive": [
+                "org.springframework:spring-jdbc"
             ]
         },
         "org.springframework:spring-web": {
